@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import com.akindu.quizapp.model.Question;
+import com.akindu.quizapp.model.QuestionWrapper;
 
 
 
@@ -31,7 +31,7 @@ public class QuizController {
     }
 
     @GetMapping ("get/{id}")  
-    public ResponseEntity<List<Question>> getQuizQuestions(@PathVariable Integer id) {
+    public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id) {
         return quizService.getQuizQuestions(id);
 
     }
