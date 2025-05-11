@@ -14,6 +14,7 @@ import com.akindu.quizapp.dao.QuizDao;
 import com.akindu.quizapp.model.Question;
 import com.akindu.quizapp.model.QuestionWrapper;
 import com.akindu.quizapp.model.Quiz;
+import com.akindu.quizapp.model.Response;
 
 
 @Service
@@ -49,5 +50,20 @@ public class QuizService {
         }
 
         return new ResponseEntity<>(questionsForUser, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> calculateResult(Integer id, List<Response> responses) {
+        
+        Quiz quiz = quizDao.findById(id).get();
+        List<Question> questions = quiz.getQuestions();
+        int score = 0;
+        int i=0;
+        for (Response response : responses){
+            if (response.getResponse().equals(questions.get(i).getRightAnswer())){
+                score++;
+            }
+            i++;
+        }
+        return new ResponseEntity<>(score, HttpStatus.OK);
     }
 }

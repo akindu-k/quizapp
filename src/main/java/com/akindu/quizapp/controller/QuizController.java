@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.akindu.quizapp.service.QuizService;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import com.akindu.quizapp.model.QuestionWrapper;
+import com.akindu.quizapp.model.Response;
 
 
 
@@ -34,5 +36,11 @@ public class QuizController {
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id) {
         return quizService.getQuizQuestions(id);
 
+    }
+
+    @PostMapping("submit/{id}")
+        public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> responses){
+            return quizService.calculateResult(id, responses);
+        
     }
 }
